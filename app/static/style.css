@@ -4,7 +4,10 @@
 }
 
 body {
-    background: linear-gradient(135deg, #fff0f0 0%, #ffdfdf 100%);
+    background: url('/static/imgMed.jfif') no-repeat center center fixed; /* Correction chemin image */
+    background-size: cover;
+    justify-content: center;
+    align-items: center;
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
     min-height: 100vh;
@@ -12,64 +15,99 @@ body {
     flex-direction: column;
 }
 
-/* Header style Unini */
+/* --- LE SECRET EST ICI --- */
+.step {
+    display: none; /* 1. On cache TOUTES les étapes par défaut */
+}
+
+.step.active {
+    display: flex; /* 2. On affiche SEULEMENT celle qui a la classe 'active' */
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* ------------------------- */
+
 .header-unini {
     padding: 40px 10% 20px;
     color: #2c3e50;
+    text-align: center;
 }
 
-.header-unini h1 { font-size: 2.5rem; margin-bottom: 5px; }
-
-/* LA ZONE LIQUID GLASS */
 .glass-container {
     background: var(--glass-bg);
-    backdrop-filter: blur(25px); /* L'effet de vitre givrée */
+    backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border-top: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 40px 40px 0 0; /* Arrondi sur le haut */
-    padding: 60px 10%;
-    flex-grow: 1; /* Prend tout le reste de l'écran */
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 40px; /* Arrondi complet pour l'effet capsule */
+    padding: 40px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 
-/* Questionnaire en grille aérée */
-.grid-form {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+.progress-container {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--primary-red);
+    transition: width 0.4s ease;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 10px;
+    margin: 15px 0 8px;
     font-weight: 600;
-    color: #444;
+    color: #333;
 }
 
 input, select {
     width: 100%;
-    padding: 15px;
-    border-radius: 15px;
+    padding: 12px 15px;
+    border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.8);
     background: rgba(255,255,255,0.7);
     font-size: 1rem;
     box-sizing: border-box;
 }
 
-.btn-container {
-    text-align: center;
-    margin-top: 50px;
+.btn-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    justify-content: center;
 }
 
 .btn-main {
     background: var(--primary-red);
     color: white;
     border: none;
-    padding: 18px 45px;
+    padding: 15px 35px;
     border-radius: 30px;
     font-weight: bold;
-    font-size: 1.1rem;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(241, 100, 110, 0.3);
+    box-shadow: 0 5px 15px rgba(241, 100, 110, 0.3);
     transition: 0.3s;
+}
+
+.btn-secondary {
+    background: rgba(0, 0, 0, 0.1);
+    border: none;
+    padding: 15px 35px;
+    border-radius: 30px;
+    cursor: pointer;
 }
