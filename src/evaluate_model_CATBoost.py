@@ -14,9 +14,6 @@ from data_processing import X_test_final, y_test
 model_cat = CatBoostClassifier()
 model_cat.load_model("modele_cancer_final.cbm")
 print("Modèle chargé et prêt pour l'évaluation.")
-
-
-
 # 3. Évaluation
 y_pred = model_cat.predict(X_test_final)
 
