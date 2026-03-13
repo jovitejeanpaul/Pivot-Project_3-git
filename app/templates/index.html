@@ -13,7 +13,7 @@
             <div class="progress-bar" id="progress-bar"></div>
         </div>
 
-        <form id="quiz-form" method="POST">
+        <form id="quiz-form" action="/" method="POST">
             
             <!-- ÉTAPE 1 : Âge -->
             <div class="step active" id="step-1">
@@ -50,6 +50,8 @@
                     <input type="number" name="partners" placeholder="ex: 1" required>
                     <label style="margin-top:15px;">Nombre de grossesses</label>
                     <input type="number" name="pregnancies" placeholder="ex: 0" required>
+                    <label>Âge du premier rapport sexuel</label>
+                    <input type="number" name="first_intercourse" placeholder="ex: 18" required>
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn-secondary" onclick="goToStep(2)">Retour</button>
