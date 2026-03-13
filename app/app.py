@@ -43,7 +43,7 @@ def index():
             
             # 4. On écrase le 'None' par le vrai message
             if prediction_value == 1:
-                prediction = "Risque élevé détecté. Veuillez consulter un spécialiste."
+                prediction = "Risque élevé détecté."
             else:
                 prediction = "Faible risque détecté."
         
