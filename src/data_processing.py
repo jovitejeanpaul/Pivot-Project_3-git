@@ -6,6 +6,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import SMOTE
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # 1. Récupération de la base de données via l'URL
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/00383/risk_factors_cervical_cancer.csv"
@@ -75,8 +77,6 @@ X_test_final = pd.DataFrame(scaler.transform(X_test_imputed), columns=X_test_imp
 
 
 
-
-# %%
 # --- AJOUT DES VISUALISATIONS (SAUVEGARDE EN PNG) ---
 import os
 
@@ -118,3 +118,5 @@ plt.savefig(chemin_heatmap, bbox_inches='tight', dpi=300)
 plt.close() # Libère la mémoire
 print(f"Graphique de corrélation sauvegardé ici : {chemin_heatmap}")
 
+
+# %%
