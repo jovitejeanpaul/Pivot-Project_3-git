@@ -139,10 +139,6 @@ L'utilisation de `TreeExplainer` de SHAP a révélé que les facteurs suivants o
 3. Citoly
 4. Dx
 5. Hormonal contraceptive
-6. STDs
-7. Dx : Cancer
-
-
 
 
 Parmi les modèles testés, le modèle CatBoost classifier a démontré les meilleures performances sur notre ensemble de test.
