@@ -6,6 +6,9 @@ import matplotlib
 matplotlib.use('Agg')  # IMPORTANT : pas d'écran, rendu fichier
 import matplotlib.pyplot as plt
 from catboost import CatBoostClassifier
+import joblib
+import pandas as pd
+
 
 app = Flask(__name__)
 
@@ -15,35 +18,38 @@ model_path = os.path.join(BASE_DIR, '..', 'modele_cancer_final.cbm')
 model = CatBoostClassifier()
 model.load_model(model_path)
 
+# ← AJOUTER CES 2 LIGNES
+scaler   = joblib.load(os.path.join(BASE_DIR, '..', 'modele_scaler.pkl'))
+colonnes = joblib.load(os.path.join(BASE_DIR, '..', 'modele_colonnes.pkl'))
 FEATURE_NAMES = [
-    "Âge",
-    "Nb. partenaires sexuels",
-    "1er rapport sexuel (âge)",
-    "Nb. grossesses",
-    "Fumeuse",
-    "Tabac (années)",
-    "Tabac (packs/an)",
-    "Contraceptifs hormonaux",
-    "Contraceptifs (années)",
-    "DIU",
-    "DIU (années)",
-    "MST",
-    "MST: condylomatose cervicale",
-    "MST: condylomatose vaginale",
-    "MST: syphilis",
-    "MST: maladie inflammatoire pelvienne",
-    "MST: herpès génital",
-    "MST: molluscum contagiosum",
-    "MST: SIDA",
-    "MST: VIH",
-    "MST: Hépatite B",
-    "MST: HPV",
-    "Dx: Cancer",
-    "Dx: CIN",
+    "Age",
+    "Number of sexual partners",
+    "First sexual intercourse",
+    "Num of pregnancies",
+    "Smokes",
+    "Smokes (years)",
+    "Smokes (packs/year)",
+    "Hormonal Contraceptives",
+    "Hormonal Contraceptives (years)",
+    "IUD",
+    "IUD (years)",
+    "STDs",
+    "STDs:cervical condylomatosis",
+    "STDs:vaginal condylomatosis",
+    "STDs:syphilis",
+    "STDs:pelvic inflammatory disease",
+    "STDs:genital herpes",
+    "STDs:molluscum contagiosum",
+    "STDs:AIDS",
+    "STDs:HIV",
+    "STDs:Hepatitis B",
+    "STDs:HPV",
+    "Dx:Cancer",
+    "Dx:CIN",
     "Dx",
     "Hinselmann",
     "Schiller",
-    "Cytologie",
+    "Citology",
 ]
 
 def generate_shap_chart(features_array, save_path):
@@ -99,6 +105,7 @@ def index():
     risk_level  = None
     shap_image  = None
     show_result = False
+    risk_percent = 0
 
     if request.method == 'POST':
         show_result = True
@@ -134,8 +141,13 @@ def index():
                 float(request.form.get('citology', 0)),
             ]
 
-            X = np.array(features).reshape(1, -1)
-            result = model.predict(X)[0]
+            X_df     = pd.DataFrame([features], columns=FEATURE_NAMES)
+            X_df     = X_df[colonnes]           # filtre les bonnes colonnes
+            X_scaled = scaler.transform(X_df)   # normalise comme à l'entraînement
+            
+            result = model.predict(X_scaled)[0]
+            proba        = model.predict_proba(X_scaled)[0][1]  # ← AJOUTER
+            risk_percent = round(proba * 100, 1)                # ← AJOUTER
 
             if result == 1:
                 prediction = "Risque élevé détecté."
@@ -147,7 +159,7 @@ def index():
             # Génération SHAP → static/shap_result.png
             shap_filename = 'shap_result.png'
             shap_path = os.path.join(BASE_DIR, 'static', shap_filename)
-            generate_shap_chart(X, shap_path)
+            generate_shap_chart(X_scaled, shap_path)
             shap_image = shap_filename
 
         except Exception as e:
@@ -157,7 +169,8 @@ def index():
                            prediction=prediction,
                            risk_level=risk_level,
                            shap_image=shap_image,
-                           show_result = True)
+                           show_result = True,
+                           risk_percent=risk_percent)
 
 
 if __name__ == '__main__':

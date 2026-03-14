@@ -137,6 +137,13 @@
             {% if risk_level == 'high' %}
                 <div class="result-icon">⚠️</div>
                 <h2 style="color:#e74c3c; margin-bottom:8px;">Risque Élevé Détecté</h2>
+                <div style="margin: 16px 0;">
+                    <p style="font-size:1.8rem; font-weight:800; color:#e74c3c;">{{ risk_percent }}%</p>
+                    <div style="background:rgba(0,0,0,0.08); border-radius:20px; height:12px; width:80%; margin:8px auto;">
+                        <div style="width:{{ risk_percent }}%; height:100%; border-radius:20px; background:#e74c3c; transition: width 1s ease;"></div>
+                    </div>
+                    <p style="font-size:0.8rem; color:#999;">Probabilité estimée de risque</p>
+                </div>
                 <p style="color:#666; margin-bottom:4px;">{{ prediction }}</p>
                 <p style="font-size:0.85rem; color:#999; margin-bottom:20px;">
                     Nous recommandons une consultation médicale dans les plus brefs délais.
@@ -144,6 +151,13 @@
             {% else %}
                 <div class="result-icon">✅</div>
                 <h2 style="color:#27ae60; margin-bottom:8px;">Faible Risque Détecté</h2>
+                <div style="margin: 16px 0;">
+                    <p style="font-size:1.8rem; font-weight:800; color:#27ae60;">{{ risk_percent }}%</p>
+                    <div style="background:rgba(0,0,0,0.08); border-radius:20px; height:12px; width:80%; margin:8px auto;">
+                        <div style="width:{{ risk_percent }}%; height:100%; border-radius:20px; background:#27ae60; transition: width 1s ease;"></div>
+                    </div>
+                    <p style="font-size:0.8rem; color:#999;">Probabilité estimée de risque</p>
+                </div>
                 <p style="color:#666; margin-bottom:4px;">{{ prediction }}</p>
                 <p style="font-size:0.85rem; color:#999; margin-bottom:20px;">
                     Continuez vos examens de routine réguliers.

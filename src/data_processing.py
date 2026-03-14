@@ -1,6 +1,7 @@
 
 #%%
 import pandas as pd
+import os
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.impute import SimpleImputer
@@ -8,9 +9,12 @@ from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import SMOTE
 import matplotlib.pyplot as plt
 import seaborn as sns
+import joblib
 
 # 1. Récupération de la base de données
-chemin = r"C:\Cycle Ingénieur\1A\S6\GitHub\Pivot-Project_3-git\data\risk_factors_cervical_cancer.csv"
+dossier_src    = os.path.dirname(os.path.abspath(__file__))
+dossier_racine = os.path.dirname(dossier_src)
+chemin         = os.path.join(dossier_racine, 'data', 'risk_factors_cervical_cancer.csv')
 df = pd.read_csv(chemin, na_values=["?"])
 
 # Définition de la cible
@@ -118,5 +122,13 @@ plt.savefig(chemin_heatmap, bbox_inches='tight', dpi=300)
 plt.close() # Libère la mémoire
 print(f"Graphique de corrélation sauvegardé ici : {chemin_heatmap}")
 
+# À la fin de data_processing.py, ajoutez :
 
+# Sauvegarder le scaler
+joblib.dump(scaler, '../modele_scaler.pkl')
+
+# Sauvegarder la liste des colonnes retenues après filtrage
+joblib.dump(list(X_train_imputed.columns), '../modele_colonnes.pkl')
+
+print("✅ Scaler et colonnes sauvegardés !")
 # %%
