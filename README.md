@@ -3,7 +3,7 @@
 Ce projet est réalisé dans le cadre de la Coding Week. Il s'agit d'un outil d'aide à la décision clinique permettant d'évaluer le risque de cancer du col de l'utérus chez les patientes en fonction de leurs antécédents médicaux et de leurs facteurs comportementaux. Notre outil se base des modèles de Machine Learning (Random Forest, XGBoost, CatBoost), avec une explicabilité assurée par SHAP.
 
 **Équipe :** 
-- Bakayoko Mouhamed Soualiou(BakMomos)
+- Bakayoko Mouhamed Soualiou(BakMomoS)
 - Diallo Ismaila(dialloismaila256messi-gif)
 - Gbatta Jovite Jean-Paul(jovitejeanpaul)
 - Mounirou Kouadio Kobenan Habib(Mounirou-H-ops)
@@ -49,10 +49,13 @@ Nous avons aussi remarqué que certaines des patientes ont très peu de données
 
 ### Gestion des valeurs aberrantes
 Une valeur aberrante est une observation qui s'éloigne de façon anormale ou extrême des autres valeurs de ta base de données. Elle semble complètement "hors norme" par rapport au comportement général de tes échantillons.
-Pour la détection des valeurs aberrantes, on utilise 
-### Gestion du déséquilibre
+Pour la détection des valeurs aberrantes, on utilise la méthode IQR(Interquartile Range). Après les avoir détecter, on les supprime de la base de données.
 
-Le jeu de données initial présentait un déséquilibre majeur (~85% de cas "Sans risque" contre ~15% "À risque"). Nous avons appliqué la méthode **SMOTE (Synthetic Minority Over-sampling Technique)** uniquement sur les données d'entraînement.
+### Remplacement des valeurs manquantes
+Enfin nous remplaçons les valeurs manquantes par la médiane de chacune des caractéristiques, calculée uniquement sur la base de données d'entrainement pour éviter un data leakage (si on l'avait calculée sur toute la base de données)
+
+### Gestion du déséquilibre
+Le jeu de données initial présentait un déséquilibre majeur (94,8% de cas "Sans risque" contre 5,2% "À risque"). Nous avons appliqué la méthode **SMOTE (Synthetic Minority Over-sampling Technique)** uniquement sur les données d'entraînement.
 **Impact :** Cela a permis de générer des exemples synthétiques pour la classe minoritaire, évitant au modèle de toujours prédire la classe majoritaire et améliorant considérablement sa sensibilité pour la détection des cas à risque.
 
 ## 📋 Liste des caractéristiques utilisées
@@ -86,7 +89,7 @@ Le jeu de données initial présentait un déséquilibre majeur (~85% de cas "Sa
 - Citology
 
 
-### Perfomance des modèles
+## 🔥 Perfomance des modèles
 ### Modèle CatBoost Classifier
 #### Performances
 * Accuracy : 96%
@@ -145,7 +148,7 @@ L'utilisation de `TreeExplainer` de SHAP a révélé que les facteurs suivants o
 Parmi les modèles testés, le modèle CatBoost classifier a démontré les meilleures performances sur notre ensemble de test.
 
 
-### Quels enseignements le "Prompt Engineering" a-t-il apportés à cette tâche ?
+## 💻 Quels enseignements le "Prompt Engineering" a-t-il apportés à cette tâche ?
 
 Le prompt engineering itératif a permis de :
 
