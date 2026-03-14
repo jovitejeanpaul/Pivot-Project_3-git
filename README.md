@@ -135,8 +135,15 @@ L'utilisation de `TreeExplainer` de SHAP a révélé que les facteurs suivants o
 3.  Le temps de tabagisme (Smokes (years))
 
 
+
 Parmi les modèles testés, le modèle CatBoost classifier a démontré les meilleures performances sur notre ensemble de test.
 
+### XGBOOST CLASSIFIER 
+* précision : **57.14%**
+* F1-Score : **44.44%**
+* Accuracy : **94.19%**
+* recall :**34.36%**
+* ROC-AUC: **0.9554%**
 
 ### Quels enseignements le "Prompt Engineering" a-t-il apportés à cette tâche ?
 
