@@ -78,7 +78,11 @@ python src/train_model_XGBoost.py
 python app/app.py
 
 ```
-Ensuite aller a l'adresse web : http://127.0.0.1:5000/
+**Ensuite aller a l'adresse web :**
+```bash
+http://127.0.0.1:5000/
+
+```
 ## 📊 Traitement des données
 
 ### Gestion des valeurs manquantes
