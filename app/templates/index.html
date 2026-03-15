@@ -201,7 +201,7 @@
                 </div>
                 <div class="form-group">
                     <label>Âge 1er rapport sexuel</label>
-                    <input type="number" name="first_intercourse" placeholder="ex: 18" min="0" required>
+                    <input type="number" name="first_intercourse" placeholder="ex: 18" min="12" max="120" required>
                 </div>
                 <div class="form-group">
                     <label>Âge</label>
@@ -410,19 +410,61 @@
 </div>
 
 <script>
-    function goToStep(n) {
-        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-        document.getElementById('step-' + n).classList.add('active');
-        const progress = ((n - 1) / 2) * 100;
-        document.getElementById('progress-bar').style.width = progress + '%';
-        for (let i = 1; i <= 3; i++) {
-            const dot = document.getElementById('dot-' + i);
-            if (i < n) { dot.style.background = '#27ae60'; dot.style.color = 'white'; dot.innerHTML = '✓'; }
-            else if (i === n) { dot.style.background = '#007bff'; dot.style.color = 'white'; dot.innerHTML = i; }
-            else { dot.style.background = 'rgba(0,123,255,0.15)'; dot.style.color = '#007bff'; dot.innerHTML = i; }
-        }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+function validateStep1() {
+    const age = parseInt(document.querySelector('[name="age"]').value);
+    const partners = document.querySelector('[name="partners"]').value;
+    const firstIntercourse = parseInt(document.querySelector('[name="first_intercourse"]').value);
+    const pregnancies = document.querySelector('[name="pregnancies"]').value;
+
+    // Champs obligatoires
+    if (!age || !partners || !firstIntercourse || !pregnancies) {
+        alert('⚠️ Veuillez remplir tous les champs obligatoires.');
+        return false;
     }
+
+    // Âge minimum
+    if (age < 12) {
+        alert('⚠️ L\'âge doit être supérieur ou égal à 12 ans.');
+        return false;
+    }
+
+    // Validation 1er rapport
+    if (firstIntercourse < 12) {
+        alert('⚠️ L\'âge du 1er rapport doit être supérieur ou égal à 12 ans.');
+        return false;
+    }
+    if (firstIntercourse > age) {
+        alert('⚠️ L\'âge du 1er rapport ne peut pas être supérieur à l\'âge actuel.');
+        return false;
+    }
+
+    return true;
+}
+
+function goToStep(n) {
+    // Validation avant d'avancer
+    if (n > 1) {
+        const current = parseInt(document.querySelector('.step.active').id.split('-')[1]);
+        if (current === 1 && n === 2) {
+            if (!validateStep1()) return;
+        }
+    }
+
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step-' + n).classList.add('active');
+
+    const progress = ((n - 1) / 2) * 100;
+    document.getElementById('progress-bar').style.width = progress + '%';
+
+    for (let i = 1; i <= 3; i++) {
+        const dot = document.getElementById('dot-' + i);
+        if (i < n) { dot.style.background = '#27ae60'; dot.style.color = 'white'; dot.innerHTML = '✓'; }
+        else if (i === n) { dot.style.background = '#007bff'; dot.style.color = 'white'; dot.innerHTML = i; }
+        else { dot.style.background = 'rgba(0,123,255,0.15)'; dot.style.color = '#007bff'; dot.innerHTML = i; }
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 </script>
 </body>
 </html>
