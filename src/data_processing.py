@@ -114,7 +114,7 @@ plt.figure(figsize=(12, 10))
 sns.heatmap(X_train_imputed.corr(), annot=False, cmap='coolwarm', linewidths=0.5)
 plt.title("Matrice de corrélation des caractéristiques")
 
-# Sauvegarde directe dans le dossier images
+#  Sauvegarde directe dans le dossier images
 chemin_heatmap = os.path.join(dossier_images, "matrice_correlation.png")
 plt.savefig(chemin_heatmap, bbox_inches='tight', dpi=300)
 plt.close() # Libère la mémoire
