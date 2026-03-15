@@ -19,11 +19,22 @@ Ce projet est réalisé dans le cadre de la Coding Week. Il s'agit d'un outil d'
 
 ## 📂 Structure du Répertoire
 
-* `app/` : Interface utilisateur Streamlit (`app.py`).
-* `src/` : Scripts de prétraitement, d'entraînement et d'explicabilité SHAP.
-* `notebooks/` : Analyse exploratoire (EDA).
-* `images/` : Visualisations et graphiques SHAP sauvegardés automatiquement.
-* `.github/workflows/` : Pipeline CI/CD.
+📦 Pivot-Project_3-git
+ ┣ 📂 .github/          # Configuration pour le pipeline CI/CD (GitHub Actions)
+ ┣ 📂 app/              # Interface utilisateur Streamlit
+ ┣ 📂 catboost_info/    # Logs et informations générés automatiquement par CatBoost
+ ┣ 📂 data/             # Jeu de données brut (CSV)
+ ┣ 📂 images/           # Visualisations sauvegardées (proportions, corrélations, graphes SHAP)
+ ┣ 📂 modèles/          # Modèles d'apprentissage automatique sauvegardés (.pkl)
+ ┣ 📂 notebooks/        # Analyse exploratoire des données (EDA)
+ ┣ 📂 reports/          # Rapports générés
+ ┣ 📂 src/              # Code source (prétraitement, entraînement des modèles, explicabilité)
+ ┣ 📂 tests/            # Scripts de tests unitaires
+ ┣ 📜 .gitattributes    # Configuration des attributs Git
+ ┣ 📜 .gitignore        # Fichiers et dossiers à ignorer par Git
+ ┣ 🐳 Dockerfile        # Configuration pour la conteneurisation de l'application
+ ┣ 📖 README.md         # Ce document de présentation
+ ┗ 📋 requirements.txt  # Liste des dépendances Python nécessaires au projet
 
 
 ## ⚙️ Reproductibilité : Installation et Exécution
