@@ -9,6 +9,7 @@ from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import SMOTE
 import matplotlib.pyplot as plt
 import seaborn as sns
+import joblib
   
 
 # 1. Récupération de la base de données via l'URL
